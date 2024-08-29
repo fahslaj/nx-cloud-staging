@@ -14,7 +14,7 @@
     ],
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
-  "nxCloudAccessToken": "YmM3MDc0ZWEtZmU3ZC00MDMxLWFhOGMtOTA4Zjc1ZGZlZjU0fHJlYWQtd3JpdGU=",
+  "nxCloudUrl": "https://staging.nx.app",
   "targetDefaults": {
     "@angular-devkit/build-angular:application": {
       "cache": true,
