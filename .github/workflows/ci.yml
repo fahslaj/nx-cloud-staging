@@ -32,7 +32,7 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      - name: Cache node modules
+      - name: Restore node modules
         uses: actions/cache/restore@v3
         env:
           cache-name: cache-node-modules
@@ -42,17 +42,17 @@ jobs:
 
       - run: npm ci --legacy-peer-deps
 
-      - name: Cache node modules
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ./node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+      # - name: Cache node modules
+      #   uses: actions/cache@v3
+      #   env:
+      #     cache-name: cache-node-modules
+      #   with:
+      #     path: ./node_modules
+      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-build-${{ env.cache-name }}-
+      #       ${{ runner.os }}-build-
+      #       ${{ runner.os }}-
 
       - uses: nrwl/nx-set-shas@v4
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
