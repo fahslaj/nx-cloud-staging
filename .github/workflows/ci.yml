@@ -49,6 +49,7 @@ jobs:
 
       - uses: nrwl/nx-set-shas@v4
 
-      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-small-js"
       - run: npx nx affected -t lint test build e2e-ci
-      - run: npx nx-cloud complete-ci-run
+
+      # print directory contents
+      - run: ls -al ./dist/apps/nx-cloud-staging/browser
