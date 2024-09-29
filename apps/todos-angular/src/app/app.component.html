@@ -1,0 +1,16 @@
+<div id="todosContainer" class="flex flex-col">
+  @for (todo of todos; track todo.title) {
+  <div class="flex flex-row">
+    <div>{{ todo.title }}</div>
+  </div>
+  }
+  <form
+    class="flex flex-row"
+    (submit)="
+      addTodo(todoInput.value); $event.preventDefault(); todoInput.value = ''
+    "
+  >
+    <input #todoInput type="text" placeholder="Add a todo" />
+    <button type="submit">Add Todo</button>
+  </form>
+</div>
