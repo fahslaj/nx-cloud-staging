@@ -17,6 +17,7 @@ export default function Index() {
 
   return (
     <div id="todosContainer" className="flex flex-col">
+      <h1>Next.js Todos</h1>
       {todoDivs}
       <form
         className="flex flex-row"
