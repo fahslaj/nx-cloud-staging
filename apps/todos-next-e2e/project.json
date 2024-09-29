@@ -1,0 +1,9 @@
+{
+  "name": "todos-next-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/todos-next-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["todos-next"],
+  "// targets": "to see all targets run: nx show project todos-next-e2e --web",
+  "targets": {}
+}
