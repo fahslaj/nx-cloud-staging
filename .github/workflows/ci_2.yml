@@ -13,6 +13,7 @@ permissions:
 
 env:
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+  NX_CI_EXECUTION_ID: ${{ github.sha }}-${{ github.run_attempt > 1 && github.workflow_sha || '' }}
   NX_CI_EXECUTION_ENV: Two
 
 jobs:
