@@ -13,9 +13,11 @@ permissions:
 
 env:
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+  NX_CI_EXECUTION_ID: ${{ github.sha }}-${{ github.run_attempt > 1 && github.workflow_sha || '' }}
+  NX_CI_EXECUTION_ENV: One
 
 jobs:
-  main:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +27,7 @@ jobs:
       # This enables task distribution via Nx Cloud
       # Run this command as early as possible, before dependencies are installed
       # Learn more at https://nx.dev/ci/reference/nx-cloud-cli#npx-nxcloud-startcirun
-      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e-ci"
+      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after e2e-ci
 
       # Cache node_modules
       - uses: actions/setup-node@v4
@@ -50,6 +52,3 @@ jobs:
       - uses: nrwl/nx-set-shas@v4
 
       - run: npx nx affected -t lint test build e2e-ci
-
-      # print directory contents
-      - run: ls -al ./dist/apps/nx-cloud-staging/browser
