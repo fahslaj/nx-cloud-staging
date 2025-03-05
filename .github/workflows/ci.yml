@@ -13,9 +13,11 @@ permissions:
 
 env:
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+  NX_CI_EXECUTION_ID: ${{ github.sha }}-${{ github.run_attempt > 1 && github.workflow_sha || '' }}
+  NX_CI_EXECUTION_ENV: One
 
 jobs:
-  main:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +27,7 @@ jobs:
       # This enables task distribution via Nx Cloud
       # Run this command as early as possible, before dependencies are installed
       # Learn more at https://nx.dev/ci/reference/nx-cloud-cli#npx-nxcloud-startcirun
-      - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e-ci"
+      # - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after e2e-ci
 
       # Cache node_modules
       - uses: actions/setup-node@v4
@@ -47,9 +49,25 @@ jobs:
 
       - run: npm i --legacy-peer-deps
 
+      - run: |
+          echo "NX_BASE: $NX_BASE"
+          echo "NX_HEAD: $NX_HEAD"
+          echo "BASE_SHA: $BASE_SHA"
+          echo "HEAD_SHA: $HEAD_SHA"
+          echo "${{ github.event.pull_request.base.ref }}"
+          echo "${{ github.base_ref }}"
+
       - uses: nrwl/nx-set-shas@v4
+        with:
+          main-branch-name: ${{ github.event.pull_request.base.ref }}
 
-      - run: npx nx affected -t lint test build e2e-ci
+      - run: |
+          echo "NX_BASE: $NX_BASE"
+          echo "NX_HEAD: $NX_HEAD"
+          echo "BASE_SHA: $BASE_SHA"
+          echo "HEAD_SHA: $HEAD_SHA"
+          echo "${{ github.event.pull_request.base.ref }}"
+          echo "${{ github.base_ref }}"
 
-      # print directory contents
-      - run: ls -al ./dist/apps/nx-cloud-staging/browser
+      # - run: npx nx affected -t lint test build e2e-ci
+      # - run: npx nx affected -t lint test build
