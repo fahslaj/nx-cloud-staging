@@ -58,6 +58,8 @@ jobs:
           echo "${{ github.base_ref }}"
 
       - uses: nrwl/nx-set-shas@v4
+        with:
+          main-branch-name: ${{ github.event.pull_request.base.ref }}
 
       - run: |
           echo "NX_BASE: $NX_BASE"
