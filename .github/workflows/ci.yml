@@ -54,13 +54,19 @@ jobs:
           echo "NX_HEAD: $NX_HEAD"
           echo "BASE_SHA: $BASE_SHA"
           echo "HEAD_SHA: $HEAD_SHA"
+          echo "${{ github.event.pull_request.base.ref }}"
+          echo "${{ github.base_ref }}"
 
       - uses: nrwl/nx-set-shas@v4
+        with:
+          main-branch-name: ${{ github.event.pull_request.base.ref }}
 
       - run: |
           echo "NX_BASE: $NX_BASE"
           echo "NX_HEAD: $NX_HEAD"
           echo "BASE_SHA: $BASE_SHA"
           echo "HEAD_SHA: $HEAD_SHA"
+          echo "${{ github.event.pull_request.base.ref }}"
+          echo "${{ github.base_ref }}"
 
       - run: npx nx affected -t lint test build e2e-ci
