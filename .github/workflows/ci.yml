@@ -49,6 +49,18 @@ jobs:
 
       - run: npm i --legacy-peer-deps
 
+      - run: |
+          echo "NX_BASE: $NX_BASE"
+          echo "NX_HEAD: $NX_HEAD"
+          echo "BASE_SHA: $BASE_SHA"
+          echo "HEAD_SHA: $HEAD_SHA"
+
       - uses: nrwl/nx-set-shas@v4
+
+      - run: |
+          echo "NX_BASE: $NX_BASE"
+          echo "NX_HEAD: $NX_HEAD"
+          echo "BASE_SHA: $BASE_SHA"
+          echo "HEAD_SHA: $HEAD_SHA"
 
       - run: npx nx affected -t lint test build e2e-ci
