@@ -70,4 +70,4 @@ jobs:
           echo "${{ github.base_ref }}"
 
       # - run: npx nx affected -t lint test build e2e-ci
-      # - run: npx nx affected -t lint test build
+      - run: npx nx affected -t lint test build
